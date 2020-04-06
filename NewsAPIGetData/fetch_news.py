@@ -1,6 +1,3 @@
-from NewsAPIClientCall import constants
-
-
 class FetchData:
     def __init__(self, news_api):
         """
