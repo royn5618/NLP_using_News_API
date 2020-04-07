@@ -29,19 +29,31 @@ class FetchData:
                                                page=page_no,
                                                page_size=page_size)
 
-    def get_all_articles_last_month(self, page_no=1, page_size=100):
+    def get_all_articles_last_month(self, from_param, to, page_no=1, page_size=100, q_int_title=False):
         """
                 To fetch the top headlines in news.
 
                 :param page_size: number of results to return per page request.
                 In API - default = 20, maximum = 100
+                :param from_param: from date
+                :param to: to date
                 :param page_no: to page through if the number of resultant page_size is more than expected
                 :return:
         """
-        return self.news_api.get_everything(q=self.query,
-                                            sources=self.sources,
-                                            page=page_no,
-                                            page_size=page_size)
+        if q_int_title:
+            return self.news_api.get_everything(qintitle=self.query,
+                                                sources=self.sources,
+                                                page=page_no,
+                                                page_size=page_size,
+                                                from_param=from_param,
+                                                to=to)
+        else:
+            return self.news_api.get_everything(q=self.query,
+                                                sources=self.sources,
+                                                page=page_no,
+                                                page_size=page_size,
+                                                from_param=from_param,
+                                                to=to)
 
     def get_top_headline_by_source(self, page_no=1, page_size=100):
         """

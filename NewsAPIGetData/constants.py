@@ -3,5 +3,5 @@ COUNTRY_MAP = {'India':'in',
                     'UK':'gb',
                     'USA':'us'}
 
-SOURCES_MAP = {'India': 'the-times-of-india',
-                 'Ireland': 'the-irish-timsses'}
+SOURCES_MAP = {'India': 'google-news-in',
+                 'Ireland': 'the-irish-times'}

@@ -6,32 +6,23 @@ import argparse
 from helper_functions import Helper
 
 
-def process_data(news_api, query, country, sources=None, daily=True):
+def process_data(news_api, query, country, daily, sources=None):
     fetch_data = FetchData(news_api, query, country, sources)
-
     if daily:
         all_articles = fetch_data.get_top_headline_by_country()
-        Helper.write_json(all_articles, query, country, sources)
+        Helper.write_json(all_articles, query, country)
     else:
         # Monthly
-        '''
-        Monthly I want  to get Indian and Irish News on Coronavirus.
-        For this I will use fetch everything.
-        Storage: Folder "Month_<no>" -> country_name -> json#.json
-        Each json contains <= 100 objects
-        '''
-        no_of_articles = None
-        all_articles = fetch_data.get_all_articles_last_month(page_no=1, page_size=100)
-        no_of_articles = all_articles['totalResults']
-        page_requests = math.ceil(no_of_articles/100)
-
-        if page_requests == 1:
-            # TO DO: Store the data in apt folder
-            pass
-        else:
-            # ITERATE and then Store
-            for i in range(1, page_requests + 1):
-                all_articles = fetch_data.get_all_articles_last_month(page_no=1, page_size=100)
+        # ITERATE and then Store
+        date_list = Helper.get_list_of_dates(num_days=32)
+        for date in date_list:
+            all_articles = fetch_data.get_all_articles_last_month(page_no=1,
+                                                                  page_size=100,
+                                                                  from_param=date,
+                                                                  to=date,
+                                                                  q_int_title=True)
+            Helper.write_json(all_articles, query, country, date)
+        print('COMPLETED DUMPS!')
 
 
 if __name__ == "__main__":
@@ -40,13 +31,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-q", type=str, help="query term")
     parser.add_argument("-c", type=str, help="country")
-    parser.add_argument("-d", type=bool, help="Daily? True or False")
+    parser.add_argument("-d", type=bool, default=False, help="Daily? True or False")
 
     args = parser.parse_args()
 
     query = args.q
     country = args.c
     daily = args.d
-    # import pdb
-    # pdb.set_trace()
-    process_data(news_api, query, country)
+
+    process_data(news_api, query, country, daily)
