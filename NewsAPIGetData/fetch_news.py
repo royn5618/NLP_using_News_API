@@ -1,3 +1,6 @@
+from NewsAPIGetData.constants import *
+
+
 class FetchData:
     def __init__(self, news_api, query, country, sources):
         """
@@ -5,11 +8,12 @@ class FetchData:
         :param news_api: NewsAPI object
         :param query: query term
         :param country: country code
-        :param sources: comma separated source ids from NewsAPI
         """
         self.news_api = news_api
-        self.country = country
-        self.sources = sources
+        self.country = COUNTRY_MAP[country]
+        self.sources = SOURCES_MAP[country]
+        if sources:
+            self.sources = sources
         self.query = query
 
     def get_top_headline_by_country(self, page_no=1, page_size=100):

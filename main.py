@@ -2,13 +2,16 @@ from newsapi import NewsApiClient
 from NewsAPIGetData.news_api_config import *
 from NewsAPIGetData.fetch_news import *
 import math
+import argparse
+from helper_functions import Helper
 
 
-def process_data(news_api, query, country, sources, daily = True):
+def process_data(news_api, query, country, sources=None, daily=True):
     fetch_data = FetchData(news_api, query, country, sources)
 
     if daily:
-        pass
+        all_articles = fetch_data.get_top_headline_by_country()
+        Helper.write_json(all_articles, query, country, sources)
     else:
         # Monthly
         '''
@@ -34,9 +37,16 @@ def process_data(news_api, query, country, sources, daily = True):
 if __name__ == "__main__":
     news_api = NewsApiClient(api_key=API_KEY)
 
-    # TO DO : User Inputs
-    query = 'foo'
-    country = 'fooia'
-    sources = 'foo-news'
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-q", type=str, help="query term")
+    parser.add_argument("-c", type=str, help="country")
+    parser.add_argument("-d", type=bool, help="Daily? True or False")
 
-    process_data(news_api, query, country, sources, daily=True)
+    args = parser.parse_args()
+
+    query = args.q
+    country = args.c
+    daily = args.d
+    # import pdb
+    # pdb.set_trace()
+    process_data(news_api, query, country)

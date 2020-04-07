@@ -1,7 +1,7 @@
-countries_mapper = {'India':'in',
+COUNTRY_MAP = {'India':'in',
                     'Ireland':'ie',
                     'UK':'gb',
                     'USA':'us'}
 
-source_mapper = {'India': 'the-times-of-india',
+SOURCES_MAP = {'India': 'the-times-of-india',
                  'Ireland': 'the-irish-timsses'}
