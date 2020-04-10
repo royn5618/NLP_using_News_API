@@ -1,29 +1,24 @@
+import datetime
 import json
 import os
-import datetime
+
+from DataProcessor.DataParser import config
 from DataProcessor.NewsAPIGetData.constants import *
 
 
 class Helper:
 
     @staticmethod
-    def read_json(read_file_path, path):
+    def read_json(read_file_path):
         """
-        Return list of jsons
-
-        :param read_file_path:
-        :param path:
-        :return:
+        Reads a json file
+        :param read_file_path: the json file path
+        :return: json
         """
-        jsons = []
-        for root, dirs, files in os.walk(path, topdown=True):
-            if not files:
-                continue
-            else:
-                for file in files:
-                    full_path = root + '/' + file
-                    print(full_path)
-        pass
+        if os.path.exists(read_file_path):
+            with open(read_file_path, 'r') as json_file:
+                json_file = json.loads(json_file.read())
+        return json_file
 
     @staticmethod
     def write_json(json_obj, query, country, source, date):
@@ -51,10 +46,6 @@ class Helper:
         print('Json Dumped at : ' + write_path)
 
     @staticmethod
-    def convert_json_to_dataframe(write_file_path):
-        pass
-
-    @staticmethod
     def get_list_of_dates(num_days):
         """
         Generates list of dates
@@ -67,11 +58,30 @@ class Helper:
         return date_list
 
     @staticmethod
-    def verify_q_terms(query_list):
-        pass
+    def get_executed_q_terms():
+        """
+        Retrieves all query terms that were executed and stored. Retrieves from the sub-folder names of Data"
+        :return: list of query terms already executed
+        """
+        q_terms_in_data_folder = []
+        for root, dir_names, file_names in os.walk(config.DATA_PATH):
+            q_terms_in_data_folder = dir_names
+            break
+        return q_terms_in_data_folder
 
     @staticmethod
-    def verify_country(country_list):
-
-        pass
+    def verify_q_terms(query_list):
+        """
+        Returns if the query term(s) in the input argument exists in the Data
+        :param query_list:list query term(s) in the input argument
+        :return: True or False
+        """
+        # Get the folder names from Data
+        all_q_terms = Helper.get_executed_q_terms()
+        for query in query_list:
+            if query in all_q_terms:
+                continue
+            else:
+                raise ValueError("Query contents not in Data Folder")
+        return True
 

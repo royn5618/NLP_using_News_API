@@ -1,5 +1,7 @@
-news_api_config.py
+config_news_api.py
 .idea/
 __pycache__/
 Data/
 DataDumpsZipped/
+config.py
+.ipynb_checkpoints/
