@@ -1,6 +1,3 @@
-from NewsAPIGetData.constants import *
-
-
 class FetchData:
 
     def __init__(self, news_api, query, country):
