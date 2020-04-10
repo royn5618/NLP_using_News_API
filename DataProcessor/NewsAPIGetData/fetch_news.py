@@ -24,9 +24,9 @@ class FetchData:
             return self.news_api.get_top_headlines(country=self.country,
                                                    page=page_no,
                                                    page_size=page_size)
-        except Exception:
-            print("Error")
-            return 'ERROR'
+        except Exception as e:
+            print(e)
+        return None
 
     def get_all_articles_last_month(self, from_param, to, sources, page_no=1, page_size=100, q_int_title=False):
         """
