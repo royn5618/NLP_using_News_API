@@ -4,3 +4,4 @@ __pycache__/
 Data/
 DataDumpsZipped/
 config.py
+.ipynb_checkpoints/

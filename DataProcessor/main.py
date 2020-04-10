@@ -1,14 +1,20 @@
-from newsapi import NewsApiClient
-from DataProcessor.NewsAPIGetData.config_news_api import *
-from DataProcessor.NewsAPIGetData.fetch_news import *
 import argparse
-from DataProcessor.helper_functions import Helper
+
+from newsapi import NewsApiClient
+
+from DataProcessor.DataParser.data_parser import DataParser
+from DataProcessor.NewsAPIGetData.config_news_api import *
 from DataProcessor.NewsAPIGetData.constants import *
+from DataProcessor.NewsAPIGetData.fetch_news import *
+from DataProcessor.helper_functions import Helper
 
 
-def process_data(query, country):
-    Helper.read_json('Data/'+query)
-    pass
+def process_data(query):
+    dp_obj = DataParser(query)
+    df = dp_obj.get_data_frame_from_json()
+    print(df.shape)
+    print(df.columns)
+    df.to_pickle('test.pkl')
 
 
 def download_data(news_api, query, country, sources):
@@ -74,6 +80,6 @@ if __name__ == "__main__":
                 q_input_list = [query]
             try:
                 if Helper.verify_q_terms(q_input_list):
-                    process_data(query=query)
+                    process_data(query=q_input_list)
             except ValueError as err:
                 print(err)

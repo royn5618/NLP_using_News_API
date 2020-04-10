@@ -1,31 +1,24 @@
+import datetime
 import json
 import os
-import glob
+
 from DataProcessor.DataParser import config
-import datetime
 from DataProcessor.NewsAPIGetData.constants import *
 
 
 class Helper:
 
     @staticmethod
-    def read_json(read_file_path, path):
+    def read_json(read_file_path):
         """
-        Return list of jsons
-
-        :param read_file_path:
-        :param path:
-        :return:
+        Reads a json file
+        :param read_file_path: the json file path
+        :return: json
         """
-        jsons = []
-        for root, dirs, files in os.walk(path, topdown=True):
-            if not files:
-                continue
-            else:
-                for file in files:
-                    full_path = root + '/' + file
-                    print(full_path)
-        pass
+        if os.path.exists(read_file_path):
+            with open(read_file_path, 'r') as json_file:
+                json_file = json.loads(json_file.read())
+        return json_file
 
     @staticmethod
     def write_json(json_obj, query, country, source, date):
@@ -51,10 +44,6 @@ class Helper:
         with open(write_path, 'w') as outfile:
             json.dump(json_obj, outfile)
         print('Json Dumped at : ' + write_path)
-
-    @staticmethod
-    def convert_json_to_dataframe(write_file_path):
-        pass
 
     @staticmethod
     def get_list_of_dates(num_days):
