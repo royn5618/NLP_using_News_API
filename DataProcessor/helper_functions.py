@@ -1,13 +1,28 @@
 import json
 import os
 import datetime
-from NewsAPIGetData.constants import *
+from DataProcessor.NewsAPIGetData.constants import *
 
 
 class Helper:
 
     @staticmethod
-    def read_json(read_file_path):
+    def read_json(read_file_path, path):
+        """
+        Return list of jsons
+
+        :param read_file_path:
+        :param path:
+        :return:
+        """
+        jsons = []
+        for root, dirs, files in os.walk(path, topdown=True):
+            if not files:
+                continue
+            else:
+                for file in files:
+                    full_path = root + '/' + file
+                    print(full_path)
         pass
 
     @staticmethod
@@ -50,4 +65,13 @@ class Helper:
         base = datetime.datetime.today()
         date_list = [(base - datetime.timedelta(days=x)).strftime("%Y-%m-%d") for x in range(num_days)]
         return date_list
+
+    @staticmethod
+    def verify_q_terms(query_list):
+        pass
+
+    @staticmethod
+    def verify_country(country_list):
+
+        pass
 
