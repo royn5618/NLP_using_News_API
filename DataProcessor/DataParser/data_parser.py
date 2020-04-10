@@ -6,7 +6,7 @@ import pandas as pd
 
 class DataParser:
 
-    def __init__(self, json, q_term, country):
+    def __init__(self, json, q_terms):
         """
 
         :param json:
@@ -15,7 +15,7 @@ class DataParser:
         """
 
         self.json = json
-        self.country = country
+        self.q_terms = q_terms
         self.source = None
         self.author = None
         self.title = None

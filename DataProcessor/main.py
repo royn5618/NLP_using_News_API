@@ -1,5 +1,5 @@
 from newsapi import NewsApiClient
-from DataProcessor.NewsAPIGetData.news_api_config import *
+from DataProcessor.NewsAPIGetData.config_news_api import *
 from DataProcessor.NewsAPIGetData.fetch_news import *
 import argparse
 from DataProcessor.helper_functions import Helper
@@ -55,29 +55,25 @@ if __name__ == "__main__":
     sources = args.s
 
     if aim == 'download':
-        download_data(news_api=news_api, query=query, country=country, sources=sources)
+        if query and country and sources:
+            download_data(news_api=news_api, query=query, country=country, sources=sources)
+        else:
+            raise ValueError("Re-validate input arguments!")
 
     elif aim == 'process':
-        # Verify arguments
-        country_input_list = country
-        q_input_list = query
-
-        '''
-        LOGIC:
-        Should process 
-        * multiple queries and multiple countries - comma-separate query term, comma-separated country
-        * comma-separated queries, ALL countries
-        '''
-
-        if country_input_list == 'ALL':
-            country_input_list = COUNTRY_MAP.keys()
-        elif ',' in country_input_list:
-            country_input_list = country.split(',')
-        if ',' in q_input_list:
-            q_input_list = query.split(',')
-
-        try:
-            if Helper.verify_q_terms() and Helper.verify_country():
-                process_data(query=query, country=country)
-        except Exception as e:
-            print(e)
+        if query:
+            '''
+            LOGIC:
+            Should process 
+            * multiple queries
+            * Processes all countries that were queried
+            '''
+            if ',' in query:
+                q_input_list = query.split(',')
+            else:
+                q_input_list = [query]
+            try:
+                if Helper.verify_q_terms(q_input_list):
+                    process_data(query=query)
+            except ValueError as err:
+                print(err)
