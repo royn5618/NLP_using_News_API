@@ -5,6 +5,8 @@ import os
 from DataProcessor.DataParser import config
 from DataProcessor.NewsAPIGetData.constants import *
 
+from pandas import ExcelWriter
+
 
 class Helper:
 
@@ -84,4 +86,10 @@ class Helper:
             else:
                 raise ValueError("Query contents not in Data Folder")
         return True
+
+    @staticmethod
+    def write_df_to_excel(df, output_path_xlsx):
+        writer = ExcelWriter(output_path_xlsx)
+        df.to_excel(writer)
+        writer.save()
 

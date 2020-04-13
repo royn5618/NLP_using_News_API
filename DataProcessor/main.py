@@ -6,7 +6,7 @@ from DataProcessor.DataParser.data_parser import DataParser
 from DataProcessor.NewsAPIGetData.config_news_api import *
 from DataProcessor.NewsAPIGetData.constants import *
 from DataProcessor.NewsAPIGetData.fetch_news import *
-from DataProcessor.helper_functions import Helper
+from helper_functions import Helper
 
 
 def process_data(query):
