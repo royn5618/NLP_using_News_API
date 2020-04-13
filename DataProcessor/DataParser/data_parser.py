@@ -5,7 +5,7 @@ from pandas.io.json import json_normalize
 
 from DataProcessor.DataParser import constants
 from DataProcessor.DataParser.config import *
-from DataProcessor.helper_functions import Helper
+from helper_functions import Helper
 
 
 class DataParser:
