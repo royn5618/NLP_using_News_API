@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore",category=DeprecationWarning)
 class NLPPreProcess:
 
     @staticmethod
-    def token_corpus_build(self, sequences):
+    def token_corpus_build(sequences):
         """
 
         :return: Sequence of tokens
@@ -28,7 +28,7 @@ class NLPPreProcess:
         return token_corpus
 
     @staticmethod
-    def lemma_generation(self, sequences):
+    def lemma_generation(sequences):
         """
 
         :return: Sequence of  lemmatized tokens
@@ -39,8 +39,26 @@ class NLPPreProcess:
             lemmatized_sequences.append(lemma)
         return lemmatized_sequences
 
+
+    # TO DO ADD Stanford NLP stuff in class
     @staticmethod
-    def n_gram_generation(self, sequences):
+    def get_lemma(no_punct_seq_tokens):
+        normalized_sequence = []
+        for each_seq in st.tag_sents(sentences=no_punct_seq_tokens):
+            normalized_tokens = []
+            for tuples in each_seq:
+                temp = tuples[0]
+                if tuples[1] == "NNP" or tuples[1] == "NNPS":
+                    continue
+                if tuples[1][:2] in dict_pos_map.keys():
+                    temp = lm.lemmatize(tuples[0].lower(),
+                                        pos=dict_pos_map[tuples[1][:2]])
+                normalized_tokens.append(temp)
+            normalized_sequence.append(normalized_tokens)
+        return normalized_sequence
+
+    @staticmethod
+    def n_gram_generation(sequences):
         """
 
         :return: Returns a bi and tri-grammed sequences
