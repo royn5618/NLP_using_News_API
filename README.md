@@ -13,7 +13,8 @@ Data Processor gets reads the data from [NewsAPI](https://newsapi.org/) and plac
 
 ```-aim=<download or process>  -q=<query term> -c=<country code> -s=<source>```
 
-```### Arguments in Details:
+```
+### Arguments in Details:
 
 -aim: Download or process. The downloader and processor works separately.
 
