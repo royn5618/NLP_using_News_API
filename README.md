@@ -24,6 +24,6 @@ Option **download** only downloads the texts and stores them in folders. Option 
 -c: Country Code or 'ALL'. This is only set-up for India and Ireland specifically. So ALL inditaes both Ireland and India as opposed to all countries.
 
 -s: Source as specified in NewAPI other wise will not be able to scrape. ALL sources refer to those configured at [Contants](https://github.com/royn5618/NLP_using_News_API/blob/master/DataProcessor/NewsAPIGetData/constants.py)
-`
 
-*** NLP Processor in progress ***
+
+## *** NLP Processor in progress ***
