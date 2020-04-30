@@ -25,5 +25,5 @@ Option **download** only downloads the texts and stores them in folders. Option 
 
 -s: Source as specified in NewAPI other wise will not be able to scrape. ALL sources refer to those configured at [Contants](https://github.com/royn5618/NLP_using_News_API/blob/master/DataProcessor/NewsAPIGetData/constants.py)
 
-
-## *** NLP Processor in progress ***
+## 2. NLP Processor
+### *** in progress ***
